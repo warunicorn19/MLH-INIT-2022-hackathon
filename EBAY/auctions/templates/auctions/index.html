@@ -1,0 +1,46 @@
+{% extends "auctions/layout.html" %}
+{% block body %}
+        {%if listings%}
+    
+                
+        <h1>Active Listing</h1>
+            
+           
+        {%if category %}
+            <h4 style="color: red">{{category}} {%endif%}</h4>
+        {%endif%}
+    
+        <div class="row row-cols-1 row-cols-md-4 g-4">
+        {% for listing in listings %}
+        <div class="row mb-4 mx-auto mt-4" style="width: 94%;">
+            
+            <div class="col d-flex">
+                
+                <div class="card" style="width: 19rem;background-color: #4444;border-color: black;" >
+                    
+                        {%if listing.image_url%}
+                            <img src="{{listing.image_url}}" class="card-img-top" alt="{{listing.title}}"
+                            width="200px" height="200px">
+                        {%else%}
+                            <img src="https://static.thenounproject.com/png/944120-200.png" class="card-img-top" alt="{{listing.title}}"
+                            width="200px" height="200px">
+                        {%endif%}
+                    <div class="card-body">
+                        <h2 class="card-title">{{listing.title}}</h4>
+                        <h3 class="card-subtitle mb-2" style="color: orange;">Price : ${{listing.starting_bid}}</h2>
+                        <p class="card-text"><small style="color: gainsboro;">Created on {{listing.date}}</small></p>
+                        <p class="card-text" style="height: 70px; overflow:hidden;">{{listing.description}}</p>
+
+                        <br />
+                        <a href="{% url 'listing' listing.id %}" class="card-link btn btn-primary" data-toggle="collapse" role="button">Know more</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+            
+        {%empty%}
+            <h1>No Listing Available</h1>
+        {% endfor %}
+        </div>
+{% endblock %}
